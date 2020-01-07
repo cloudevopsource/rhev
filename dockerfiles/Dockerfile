@@ -1,4 +1,4 @@
-FROM roboxes:rhel7
+FROM roboxes/rhel7
 RUN subscription-manager register --username orasun@vip.qq.com --password Fastrise@666 --auto-attach
 RUN subscription-manager list
 RUN subscription-manager repos \
