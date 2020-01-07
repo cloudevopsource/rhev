@@ -1,5 +1,4 @@
-FROM holdman/rhel7.6.1810
-RUN yum install subscription-manager
+FROM registry.access.redhat.com/rhel7/rhel
 RUN subscription-manager register --username orasun@vip.qq.com --password Fastrise@666 --auto-attach
 RUN subscription-manager list
 RUN subscription-manager repos \
