@@ -78,9 +78,6 @@ yum remove -y kernel-header*
 # 查看当前内核
 rpm -qa | grep kernel
 
-#安装/stage下kernenl4.19rpm包
-rpm -ivh *.rpm     
-
 # 配置yum代理
 
 ```bash
