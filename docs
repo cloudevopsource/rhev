@@ -65,38 +65,31 @@ ipv4 manual   172.16.10.1
 4.升级kernel
  
 # 下载离线包kernel_4.19
-```bash
+
 172.16.10.1:/stage
-```
+
 
 # 删除旧内核
 yum remove -y  kernel-devel*
-yum remove -y kernel-tools*
-yum remove -y kernel-header*
+yum remove -y  kernel-tools*
+yum remove -y  kernel-header*
 
 
 # 查看当前内核
 rpm -qa | grep kernel
 
 # 配置yum代理
-
-```bash
 vi /etc/yum.conf
 proxy=http://172.16.130.106:7078
-
 export http_proxy="http://172.16.130.106:7078"
 export https_proxy="https://172.16.130.106:7078"
+
 
 # 下载kernel内核包其他依赖包
 yum install perl* 
 
 # 安装/stage下kernenl4.19rpm包
 rpm -ivh *.rpm     
-
-
-# 内核安装完，查看可用内核
-rpm -qa | grep kernel
-
 
 # 设置默认启动项
 grub2-set-default 0
@@ -105,10 +98,13 @@ grub2-set-default 0
 # 更新grub.cfg
 grub2-mkconfig -o /boot/grub2/grub.cfg
 
-# 重新切换到新内核版本
+# 重启切换到新内核
 reboot
 
-# 删除旧内核版本
+# 检查系统存在内核
+rpm -qa | grep kernel
+
+# 重启后再次检查内核，若存在旧版本，则删除旧版本
 yum remove -y kernel-3.10.0*
 
 #升级软件包
@@ -117,6 +113,7 @@ yum remove -y kernel-3.10.0*
 #再次查看当前内核版本
 uname -r
 rpm -qa | grep kernel
+
 
 # 安装时间同步并配置
 
