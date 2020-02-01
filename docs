@@ -111,8 +111,6 @@ yum remove -y kernel-3.10.0*
 # 升级软件包
 # yum update   
 
-# 再次查看当前内核版本
-rpm -qa | grep kernel
 
 
 # 安装时间同步并配置
