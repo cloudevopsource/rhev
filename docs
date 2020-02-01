@@ -102,6 +102,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 reboot
 
 # 检查系统存在内核
+uname -r
 rpm -qa | grep kernel
 
 # 重启后再次检查内核，若存在旧版本，则删除旧版本
