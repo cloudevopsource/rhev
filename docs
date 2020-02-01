@@ -39,8 +39,16 @@ ipv4 manual   172.16.10.1
 
 # grep -E 'svm|vmx' /proc/cpuinfo | grep nx #输出值满足
 
+2.向RedHat订阅管理器注册系统（注册可在官网订阅）
+```bash
+# subscription-manager register               #注册账号：fzgwjt
+# subscription-manager list --available       #查看可订阅池，获取对应pollid
+# subscription-manager attach --pool=pool_id  #注册对应订阅仓库池
+# subscription-manager list --consumed        #查看系统当前附加的订阅
+```
 
-2.启用仓库包
+
+3.启用仓库包
 ```bash
 # subscription-manager repos \
     --disable='*' \
@@ -52,14 +60,6 @@ ipv4 manual   172.16.10.1
     --enable=jb-eap-7.2-for-rhel-7-server-rpms \
     --enable=rhel-7-server-rhv-4-mgmt-agent-rpms \
     --enable=rhel-7-server-ansible-2-rpms
-```
-
-3.向RedHat订阅管理器注册系统（注册可在官网订阅）
-```bash
-# subscription-manager register               #注册账号：fzgwjt
-# subscription-manager list --available       #查看可订阅池，获取对应pollid
-# subscription-manager attach --pool=pool_id  #注册对应订阅仓库池
-# subscription-manager list --consumed        #查看系统当前附加的订阅
 ```
 
 4.升级kernel
