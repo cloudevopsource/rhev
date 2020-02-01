@@ -94,14 +94,13 @@ yum install perl*
 rpm -ivh *.rpm     
 
 
-# yum update    #升级软件包
-
 # 内核安装完，查看可用内核
 rpm -qa | grep kernel
 
 
 # 设置默认启动项
 grub2-set-default 0
+
 
 # 更新grub.cfg
 grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -111,6 +110,9 @@ reboot
 
 # 删除旧内核版本
 yum remove -y kernel-3.10.0*
+
+#升级软件包
+# yum update   
 
 #再次查看当前内核版本
 uname -r
