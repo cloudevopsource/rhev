@@ -68,6 +68,19 @@ ipv4 manual   172.16.10.1
 ```bash
 172.16.10.1:/stage
 ```
+
+# 删除旧内核
+yum remove -y  kernel-devel*
+yum remove -y kernel-tools*
+yum remove -y kernel-header*
+
+
+# 查看当前内核
+rpm -qa | grep kernel
+
+#安装/stage下kernenl4.19rpm包
+rpm -ivh *.rpm     
+
 # 配置yum代理
 
 ```bash
@@ -79,19 +92,11 @@ export https_proxy="https://172.16.130.106:7078"
 
 yum install perl*  #下载kernel内核包其他依赖包
 
-rpm -ivh *.rpm     #安装/stage下kernenl4.19rpm包
-```
-
 # yum update    #升级软件包
 
 # 内核安装完，查看可用内核
 rpm -qa | grep kernel
 
-# 删除旧内核
-yum remove -y  kernel-devel*
-yum remove -y kernel-tools*
-yum remove -y kernel-header*
-yum --enablerepo=elrepo-kernel install  kernel-ml kernel-ml-devel kernel-ml-headers kernel-ml-tools kernel-ml-tools-libs kernel-ml-tools-libs-devel  -y
 
 # 设置默认启动项
 grub2-set-default 0
