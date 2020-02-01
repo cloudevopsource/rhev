@@ -105,14 +105,13 @@ reboot
 uname -r
 rpm -qa | grep kernel
 
-# 重启后再次检查内核，若存在旧版本，则删除旧版本
+# 若存在旧版本，则删除旧版本
 yum remove -y kernel-3.10.0*
 
-#升级软件包
+# 升级软件包
 # yum update   
 
-#再次查看当前内核版本
-uname -r
+# 再次查看当前内核版本
 rpm -qa | grep kernel
 
 
