@@ -90,7 +90,12 @@ proxy=http://172.16.130.106:7078
 export http_proxy="http://172.16.130.106:7078"
 export https_proxy="https://172.16.130.106:7078"
 
-yum install perl*  #下载kernel内核包其他依赖包
+# 下载kernel内核包其他依赖包
+yum install perl* 
+
+# 安装/stage下kernenl4.19rpm包
+rpm -ivh *.rpm     
+
 
 # yum update    #升级软件包
 
