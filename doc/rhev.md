@@ -530,7 +530,14 @@ gluster volume start gv_data
 gluster volume start gv_iso
 ```
 
-3、重启代理systemctl restart ovirt-ha-agent,还是不行
+3、重启代理还是不行
+
+```bash
+systemctl restart ovirt-ha-agent
+```
+
+
+
 4、检查engine 配置文件
 
 ```
