@@ -507,7 +507,7 @@ yum install virt-viewer
 **解决步骤如下**
 
 1、尝试手动挂载glusterfs: mount -t glusterfs ovm6stor:/gv_data /mnt/test
-2 、无法挂在因为glusterfs发生故障，处理顺序:停止卷\先剔出故障节点的brick副本\在剔出故障peer节点\再次启动卷
+2、无法挂在因为glusterfs发生故障，处理顺序:停止卷\先剔出故障节点的brick副本\在剔出故障peer节点\再次启动卷
 
 ```bash
 gluster volume stop gv_data
