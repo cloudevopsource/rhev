@@ -275,8 +275,8 @@ engine-setup
 
 
 ​         
-          --== MISC CONFIGURATION ==--
-         
+​          --== MISC CONFIGURATION ==--
+​         
           Please choose Data Warehouse sampling scale:
           (1) Basic
           (2) Full
@@ -495,3 +495,53 @@ yum install virt-viewer
 打开虚拟化管理平台
 根据系统架构32/64下载控制台客户端资源
 下载安装VirtViewer和usbdk；
+
+# 问题记录
+
+**engine自启动引擎虚拟机 无法启动维护**
+
+引擎虚拟机启动报错The hosted engine configuration has not been retrieved from shared storage. Please ensure that ovirt
+问题在共享存储
+以glusterfs为例,三个多副本节点剩下一个节点可用
+
+**解决步骤如下**
+
+1、尝试手动挂载glusterfs: mount -t glusterfs ovm6stor:/gv_data /mnt/test
+2 、无法挂在因为glusterfs发生故障，处理顺序:停止卷\先剔出故障节点的brick副本\在剔出故障peer节点\再次启动卷
+
+```bash
+gluster volume stop gv_data
+gluster volume stop gv_iso
+gluster volume info
+gluster volume remove-brick gv_data  replica 2 ovm4stor:/gluster_bricks/data force
+gluster volume remove-brick gv_data  replica 1 ovm5stor:/gluster_bricks/data force
+gluster volume info
+gluster volume remove-brick gv_iso  replica 2 ovm5stor:/gluster_bricks/iso force
+gluster volume remove-brick gv_iso  replica 1 ovm4stor:/gluster_bricks/iso force
+gluster volume info
+gluster peer detach 100.100.100.5 force
+gluster peer detach 100.100.100.4 force
+gluster volume start gv_data
+gluster volume start gv_iso
+```
+
+3、重启代理systemctl restart ovirt-ha-agent,还是不行
+4、检查engine 配置文件
+
+```
+vi /etc/ovirt-hosted-engine/hosted-engine.conf
+```
+
+```
+#修改
+storage=ovm6stor:/gv_data
+mnt_options=backup-volfile-servers=ovm4stor:ovm5stor
+```
+
+
+5、重启代理systemctl restart ovirt-ha-agent
+
+hosted-engine  --connect-storage
+hosted-engine --console
+hosted-engine --vm-status
+hosted-engine --vm-start
